@@ -53,11 +53,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  // Future<void> getUserProfiles() async {
-  // ApiService apiService = ApiService(dio.Dio());
-  // final response = await apiService.userProfiles();
-  // print(response);
-  // }
+  Future<void> getUserProfiles() async {
+  ApiService apiService = ApiService(dio.Dio());
+  final response = await apiService.userProfiles();
+  print(response);
+  }
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: getUserProfiles,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:facebook_clone/network/entity/user_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -20,8 +22,14 @@ class UserResponse {
 
   final CompanyEntity company;
 
-  UserResponse(this.id, this.name, this.username, this.email, this.address, this.phone, this.website, this.company);
+  static List<UserResponse> fromJsonArray(String str) {
+      return (jsonDecode(str) as List)
+        .map((json) => UserResponse.fromJson(json))
+        .toList();
+          }
 
+  UserResponse(this.id, this.name, this.username, this.email, this.address, this.phone, this.website, this.company);
+  
   factory UserResponse.fromJson(Map<String, dynamic> json) => _$UserResponseFromJson(json);
   Map<String, dynamic> toJson() => _$UserResponseToJson(this);
 
