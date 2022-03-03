@@ -23,8 +23,8 @@ abstract class ApiService {
     return _ApiService(dio);
   }
   @GET('/users')
-  Future<UserResponse> userProfiles ();
+  Future<List<UserResponse>> userProfiles ()  ;
 
   @GET("/posts?userId={userId}")
-  Future<PostResponse> userPosts (@Path("userId") int userId);
+  Future<List<PostResponse>> userPosts (@Path("userId") int userId);
 }

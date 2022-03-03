@@ -16,34 +16,38 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<UserResponse> userProfiles() async {
+  Future<List<UserResponse>> userProfiles() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<UserResponse>(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<UserResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/users',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UserResponse.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => UserResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
   @override
-  Future<PostResponse> userPosts(userId) async {
+  Future<List<PostResponse>> userPosts(userId) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<PostResponse>(
+    final _result = await _dio.fetch<List<dynamic>>(
+        _setStreamType<List<PostResponse>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
                 .compose(_dio.options, '/posts?userId=$userId',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = PostResponse.fromJson(_result.data!);
+    var value = _result.data!
+        .map((dynamic i) => PostResponse.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 
